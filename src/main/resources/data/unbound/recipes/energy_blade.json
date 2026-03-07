@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "A": "minecraft:amethyst_shard",
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    "A",
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "unbound:energy_blade"
+  }
+}
+
