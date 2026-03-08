@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:blaze_rod",
+    "G": "minecraft:fire_charge",
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    "G",
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "unbound:energy_blade_red"
+  }
+}

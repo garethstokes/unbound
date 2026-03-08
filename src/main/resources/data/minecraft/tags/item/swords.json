@@ -1,7 +1,12 @@
 {
   "replace": false,
   "values": [
-    "unbound:energy_blade"
+    "unbound:energy_blade_blue",
+    "unbound:energy_blade_green",
+    "unbound:energy_blade_red",
+    "unbound:energy_blade_yellow",
+    "unbound:energy_blade_purple",
+    "unbound:energy_blade_ultimate"
   ]
 }
 

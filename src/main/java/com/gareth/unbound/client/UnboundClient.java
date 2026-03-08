@@ -1,6 +1,7 @@
 package com.gareth.unbound.client;
 
 import com.gareth.unbound.item.EnergyBladeItem;
+import com.gareth.unbound.item.UltimateEnergyBladeItem;
 import com.gareth.unbound.registry.ModSounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
@@ -19,7 +20,8 @@ public final class UnboundClient implements ClientModInitializer {
 			return false;
 		}
 
-		if (!(player.getMainHandStack().getItem() instanceof EnergyBladeItem)) {
+		var item = player.getMainHandStack().getItem();
+		if (!(item instanceof EnergyBladeItem || item instanceof UltimateEnergyBladeItem)) {
 			return false;
 		}
 

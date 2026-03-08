@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "unbound:energy_blade_blue",
+    "G": "unbound:energy_blade_green",
+    "R": "unbound:energy_blade_red",
+    "Y": "unbound:energy_blade_yellow",
+    "P": "unbound:energy_blade_purple",
+    "S": "minecraft:nether_star"
+  },
+  "pattern": [
+    "RGP",
+    "BSY",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "unbound:energy_blade_ultimate"
+  }
+}

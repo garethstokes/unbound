@@ -3,17 +3,16 @@
   "category": "equipment",
   "key": {
     "#": "minecraft:stick",
-    "A": "minecraft:amethyst_shard",
+    "G": "minecraft:gold_ingot",
     "X": "#minecraft:diamond_tool_materials"
   },
   "pattern": [
-    "A",
+    "G",
     "X",
     "#"
   ],
   "result": {
     "count": 1,
-    "id": "unbound:energy_blade"
+    "id": "unbound:energy_blade_yellow"
   }
 }
-
