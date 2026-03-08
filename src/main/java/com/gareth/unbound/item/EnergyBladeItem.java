@@ -1,10 +1,7 @@
 package com.gareth.unbound.item;
 
 import com.gareth.unbound.registry.ModSounds;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
@@ -13,7 +10,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.Box;
 
 import java.util.List;
@@ -33,39 +29,6 @@ public final class EnergyBladeItem extends Item {
 
 	public EnergyBladeItem(Item.Settings settings) {
 		super(MATERIAL.applySwordSettings(settings.rarity(Rarity.RARE), BASE_ATTACK_DAMAGE, ATTACK_SPEED));
-	}
-
-	@Override
-	public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot) {
-		super.inventoryTick(stack, world, entity, slot);
-
-		if (!(entity instanceof PlayerEntity player)) {
-			return;
-		}
-
-		if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) {
-			return;
-		}
-
-		if (!player.handSwinging || player.handSwingTicks != 0) {
-			return;
-		}
-
-		Hand swingHand = player.preferredHand;
-		boolean isSwingingThisHand = (slot == EquipmentSlot.MAINHAND && swingHand == Hand.MAIN_HAND)
-			|| (slot == EquipmentSlot.OFFHAND && swingHand == Hand.OFF_HAND);
-		if (isSwingingThisHand) {
-			world.playSound(
-				null,
-				player.getX(),
-				player.getY(),
-				player.getZ(),
-				ModSounds.ENERGY_BLADE_SWING,
-				SoundCategory.PLAYERS,
-				0.55f,
-				1.25f + (world.getRandom().nextFloat() * 0.25f)
-			);
-		}
 	}
 
 	@Override
@@ -169,8 +132,8 @@ public final class EnergyBladeItem extends Item {
 			z,
 			ModSounds.ENERGY_BLADE_HIT,
 			SoundCategory.PLAYERS,
-			0.9f,
-			0.95f + (world.getRandom().nextFloat() * 0.12f)
+			1.05f,
+			1.10f + (world.getRandom().nextFloat() * 0.18f)
 		);
 	}
 }
