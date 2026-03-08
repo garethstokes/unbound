@@ -1,6 +1,8 @@
 package com.gareth.unbound.item;
 
 import com.gareth.unbound.registry.ModSounds;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -35,6 +37,9 @@ public final class UltimateEnergyBladeItem extends Item {
 	private static final double SHOCKWAVE_RADIUS = 4.0;
 	private static final double SHOCKWAVE_MAX_STRENGTH = 1.0;
 
+	// Ultimate blade cuts through obsidian even faster
+	private static final float OBSIDIAN_MINING_SPEED = 100.0f;
+
 	// Particle colors for rainbow effect
 	private static final int[] PARTICLE_COLORS = {
 		0x22E6FF, // Blue
@@ -51,6 +56,28 @@ public final class UltimateEnergyBladeItem extends Item {
 	@Override
 	public boolean hasGlint(ItemStack stack) {
 		return true; // Always show enchantment glint
+	}
+
+	@Override
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (isObsidianLike(state)) {
+			return OBSIDIAN_MINING_SPEED;
+		}
+		return super.getMiningSpeed(stack, state);
+	}
+
+	@Override
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		if (isObsidianLike(state)) {
+			return true;
+		}
+		return super.isCorrectForDrops(stack, state);
+	}
+
+	private static boolean isObsidianLike(BlockState state) {
+		return state.isOf(Blocks.OBSIDIAN)
+			|| state.isOf(Blocks.CRYING_OBSIDIAN)
+			|| state.isOf(Blocks.RESPAWN_ANCHOR);
 	}
 
 	@Override

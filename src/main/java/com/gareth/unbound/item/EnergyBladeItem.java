@@ -4,6 +4,8 @@ import com.gareth.unbound.registry.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
@@ -20,6 +22,9 @@ import java.util.List;
 public class EnergyBladeItem extends Item {
 	protected final BladeConfig config;
 
+	// Energy blades cut through obsidian like butter
+	private static final float OBSIDIAN_MINING_SPEED = 50.0f;
+
 	public EnergyBladeItem(Item.Settings settings, BladeConfig config) {
 		super(config.material().applySwordSettings(
 			settings.rarity(config.rarity()),
@@ -27,6 +32,28 @@ public class EnergyBladeItem extends Item {
 			config.attackSpeed()
 		));
 		this.config = config;
+	}
+
+	@Override
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (isObsidianLike(state)) {
+			return OBSIDIAN_MINING_SPEED;
+		}
+		return super.getMiningSpeed(stack, state);
+	}
+
+	@Override
+	public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+		if (isObsidianLike(state)) {
+			return true;
+		}
+		return super.isCorrectForDrops(stack, state);
+	}
+
+	private static boolean isObsidianLike(BlockState state) {
+		return state.isOf(Blocks.OBSIDIAN)
+			|| state.isOf(Blocks.CRYING_OBSIDIAN)
+			|| state.isOf(Blocks.RESPAWN_ANCHOR);
 	}
 
 	@Override
