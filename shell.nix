@@ -1,5 +1,5 @@
 {
-  pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {}
+  pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { },
 }:
 
 pkgs.mkShell {
@@ -15,6 +15,9 @@ pkgs.mkShell {
 
     # Useful development tools
     git
+    uv
+    blockbench
+    viu
 
     # For running Minecraft client in dev
     # These provide OpenGL and audio support
