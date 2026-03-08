@@ -1,4 +1,6 @@
 .direnv/
+.env
 .gradle/
+.gradle-user/
 build/
 run/
