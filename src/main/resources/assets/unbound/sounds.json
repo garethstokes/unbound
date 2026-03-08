@@ -1,12 +1,12 @@
 {
   "energy_blade_swing": {
     "sounds": [
-      "energy_blade_swing"
+      "unbound:energy_blade_swing"
     ]
   },
   "energy_blade_hit": {
     "sounds": [
-      "energy_blade_hit"
+      "unbound:energy_blade_hit"
     ]
   }
 }
