@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "D": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    " AD",
+    "DA ",
+    "AD "
+  ],
+  "result": {
+    "count": 1,
+    "id": "unbound:energy_boomerang"
+  }
+}
