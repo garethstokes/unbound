@@ -10,13 +10,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.MathHelper;
@@ -55,7 +56,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 
 	public EnergyBoomerangEntity(World world, LivingEntity owner, ItemStack stack) {
 		super(ModEntities.ENERGY_BOOMERANG, owner, world, stack, null);
-		this.startPos = owner.getPos();
+		this.startPos = owner.getEntityPos();
 		this.pickupType = PickupPermission.ALLOWED;
 	}
 
@@ -68,20 +69,20 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 	public void tick() {
 		super.tick();
 
-		if (getWorld().isClient) {
+		if (getEntityWorld().isClient()) {
 			return;
 		}
 
 		Entity owner = getOwner();
 
 		// Spawn trail particles on server
-		if (getWorld() instanceof ServerWorld serverWorld) {
+		if (getEntityWorld() instanceof ServerWorld serverWorld) {
 			spawnTrailParticles(serverWorld);
 		}
 
 		// Check if we should start returning (max distance reached)
 		if (!returning && startPos != null) {
-			double distanceTraveled = getPos().distanceTo(startPos);
+			double distanceTraveled = getEntityPos().distanceTo(startPos);
 			if (distanceTraveled >= MAX_DISTANCE) {
 				startReturning();
 			}
@@ -102,7 +103,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 			}
 
 			// Calculate direction to owner
-			Vec3d toOwner = owner.getEyePos().subtract(getPos());
+			Vec3d toOwner = owner.getEyePos().subtract(getEntityPos());
 			double distance = toOwner.length();
 
 			// Parent's pickup system handles collection when player collides
@@ -125,7 +126,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 		returning = true;
 		hitEntities.clear(); // Allow hitting entities again on return path
 
-		if (getWorld() instanceof ServerWorld serverWorld) {
+		if (getEntityWorld() instanceof ServerWorld serverWorld) {
 			// Play return sound
 			serverWorld.playSound(
 				null,
@@ -149,7 +150,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 
 		hitEntities.add(target.getUuid());
 
-		if (getWorld() instanceof ServerWorld serverWorld && target instanceof LivingEntity livingTarget) {
+		if (getEntityWorld() instanceof ServerWorld serverWorld && target instanceof LivingEntity livingTarget) {
 			// Deal damage
 			DamageSource damageSource = getDamageSources().thrown(this, getOwner());
 			livingTarget.damage(serverWorld, damageSource, BASE_DAMAGE);
@@ -179,7 +180,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 			// Hit a block while going out - start returning
 			startReturning();
 
-			if (getWorld() instanceof ServerWorld serverWorld) {
+			if (getEntityWorld() instanceof ServerWorld serverWorld) {
 				// Spawn impact particles
 				Vec3d pos = blockHitResult.getPos();
 				serverWorld.spawnParticles(
@@ -269,27 +270,27 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("Returning", returning);
+	protected void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
+		view.putBoolean("Returning", returning);
 		if (startPos != null) {
-			nbt.putDouble("StartX", startPos.x);
-			nbt.putDouble("StartY", startPos.y);
-			nbt.putDouble("StartZ", startPos.z);
+			view.putDouble("StartX", startPos.x);
+			view.putDouble("StartY", startPos.y);
+			view.putDouble("StartZ", startPos.z);
 		}
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		returning = nbt.getBoolean("Returning", false);
-		if (nbt.contains("StartX")) {
+	protected void readCustomData(ReadView view) {
+		super.readCustomData(view);
+		returning = view.getBoolean("Returning", false);
+		view.getOptionalReadView("StartX").ifPresent(unused -> {
 			startPos = new Vec3d(
-				nbt.getDouble("StartX", 0),
-				nbt.getDouble("StartY", 0),
-				nbt.getDouble("StartZ", 0)
+				view.getDouble("StartX", 0),
+				view.getDouble("StartY", 0),
+				view.getDouble("StartZ", 0)
 			);
-		}
+		});
 	}
 
 	public boolean isReturning() {

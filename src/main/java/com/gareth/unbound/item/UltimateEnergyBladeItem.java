@@ -82,7 +82,7 @@ public final class UltimateEnergyBladeItem extends Item {
 
 	@Override
 	public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (attacker.getWorld() instanceof ServerWorld serverWorld) {
+		if (attacker.getEntityWorld() instanceof ServerWorld serverWorld) {
 			applyAllEffects(target, attacker);
 			applyShockwave(serverWorld, target, attacker);
 			spawnRainbowHitEffects(serverWorld, target, attacker);

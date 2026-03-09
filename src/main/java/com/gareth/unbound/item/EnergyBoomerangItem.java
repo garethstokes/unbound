@@ -40,7 +40,7 @@ public class EnergyBoomerangItem extends Item {
 			0.9f
 		);
 
-		if (!world.isClient) {
+		if (!world.isClient()) {
 			// Split off the item to throw (removes from inventory in survival, copies in creative)
 			ItemStack thrownStack = stack.splitUnlessCreative(1, user);
 

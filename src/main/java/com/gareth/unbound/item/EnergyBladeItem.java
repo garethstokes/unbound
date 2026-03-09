@@ -58,7 +58,7 @@ public class EnergyBladeItem extends Item {
 
 	@Override
 	public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (attacker.getWorld() instanceof ServerWorld serverWorld) {
+		if (attacker.getEntityWorld() instanceof ServerWorld serverWorld) {
 			applyExtraKnockback(target, attacker);
 			applyShockwave(serverWorld, target, attacker);
 			applySpecialEffect(target, attacker);
