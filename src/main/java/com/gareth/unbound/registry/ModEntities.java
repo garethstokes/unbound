@@ -14,7 +14,7 @@ public final class ModEntities {
 	public static final EntityType<EnergyBoomerangEntity> ENERGY_BOOMERANG = register(
 		"energy_boomerang",
 		EntityType.Builder.<EnergyBoomerangEntity>create(EnergyBoomerangEntity::new, SpawnGroup.MISC)
-			.dimensions(0.5f, 0.5f)
+			.dimensions(1.0f, 0.5f)
 			.maxTrackingRange(64)
 			.trackingTickInterval(10)
 	);
