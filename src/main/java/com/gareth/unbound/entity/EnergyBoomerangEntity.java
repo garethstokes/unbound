@@ -42,6 +42,7 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 	private static final double MAX_DISTANCE = 20.0;
 	private static final double RETURN_SPEED = 1.5;
 	private static final int PARTICLE_COLOR = 0x22E6FF;
+	private static final float CURVE_DEGREES_PER_TICK = 3.75f;
 
 	private boolean returning = false;
 	private Vec3d startPos;
@@ -84,6 +85,12 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 			if (distanceTraveled >= MAX_DISTANCE) {
 				startReturning();
 			}
+		}
+
+		// Apply curve to outward flight
+		if (!returning) {
+			applyCurve();
+			updateFacingRotation();
 		}
 
 		// Handle return movement
@@ -223,6 +230,27 @@ public class EnergyBoomerangEntity extends PersistentProjectileEntity implements
 		double horizontalSpeed = velocity.horizontalLength();
 		this.setPitch((float) (MathHelper.atan2(velocity.y, horizontalSpeed) * (180.0 / Math.PI)));
 		this.setYaw((float) (MathHelper.atan2(velocity.x, velocity.z) * (180.0 / Math.PI)));
+	}
+
+	/**
+	 * Rotates the horizontal velocity clockwise to create a curved flight path.
+	 */
+	private void applyCurve() {
+		Vec3d velocity = getVelocity();
+
+		// Convert curve rate to radians
+		double theta = Math.toRadians(CURVE_DEGREES_PER_TICK);
+		double cos = Math.cos(theta);
+		double sin = Math.sin(theta);
+
+		// Rotate horizontal components clockwise (rightward from player's view)
+		double x = velocity.x;
+		double z = velocity.z;
+		double newX = x * cos + z * sin;
+		double newZ = -x * sin + z * cos;
+
+		// Set new velocity, preserving vertical component
+		setVelocity(newX, velocity.y, newZ);
 	}
 
 	@Override
