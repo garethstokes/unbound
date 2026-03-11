@@ -7,6 +7,7 @@ import com.gareth.unbound.item.GreenEnergyBladeItem;
 import com.gareth.unbound.item.PurpleEnergyBladeItem;
 import com.gareth.unbound.item.RedEnergyBladeItem;
 import com.gareth.unbound.item.UltimateEnergyBladeItem;
+import com.gareth.unbound.item.WhiteEnergyBladeItem;
 import com.gareth.unbound.item.YellowEnergyBladeItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -31,6 +32,8 @@ public final class ModItems {
 		key -> new YellowEnergyBladeItem(new Item.Settings().registryKey(key)));
 	public static final Item ENERGY_BLADE_PURPLE = register("energy_blade_purple",
 		key -> new PurpleEnergyBladeItem(new Item.Settings().registryKey(key)));
+	public static final Item ENERGY_BLADE_WHITE = register("energy_blade_white",
+		key -> new WhiteEnergyBladeItem(new Item.Settings().registryKey(key)));
 	public static final Item ENERGY_BLADE_ULTIMATE = register("energy_blade_ultimate",
 		key -> new UltimateEnergyBladeItem(new Item.Settings().registryKey(key)));
 	public static final Item ENERGY_BOOMERANG = register("energy_boomerang",
@@ -44,6 +47,7 @@ public final class ModItems {
 				ENERGY_BLADE_RED,
 				ENERGY_BLADE_YELLOW,
 				ENERGY_BLADE_PURPLE,
+				ENERGY_BLADE_WHITE,
 				ENERGY_BLADE_ULTIMATE,
 				ENERGY_BOOMERANG
 			);

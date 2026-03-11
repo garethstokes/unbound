@@ -264,5 +264,21 @@ public class EnergyBladeItem extends Item {
 				Rarity.EPIC
 			);
 		}
+
+		public static BladeConfig white() {
+			return new BladeConfig(
+				ToolMaterial.NETHERITE,  // Strong material (like purple)
+				6.0f,          // Good damage (matches purple)
+				-2.5f,         // Slightly faster than purple
+				1.2,           // Good knockback
+				3.0,           // Medium shockwave
+				0.8,
+				0xFFFFFF,      // Pure white
+				1.3f,
+				ParticleTypes.END_ROD,  // Radiant light particles
+				1.15f,         // Higher pitch (pure/holy sound)
+				Rarity.EPIC
+			);
+		}
 	}
 }

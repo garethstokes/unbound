@@ -42,6 +42,11 @@ PALETTES = {
         "mid": (180, 100, 255),
         "edge": (120, 50, 200),
     },
+    "white": {
+        "core": (255, 255, 255),   # Pure white center
+        "mid": (220, 225, 235),    # Slight silver-blue tint
+        "edge": (180, 190, 210),   # Cooler silver edge
+    },
 }
 
 # Handle colors
