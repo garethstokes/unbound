@@ -1,6 +1,7 @@
 package com.gareth.unbound.registry;
 
 import com.gareth.unbound.UnboundMod;
+import com.gareth.unbound.item.DoubleSidedEnergyBladeItem;
 import com.gareth.unbound.item.EnergyBladeItem;
 import com.gareth.unbound.item.EnergyBoomerangItem;
 import com.gareth.unbound.item.GreenEnergyBladeItem;
@@ -36,6 +37,8 @@ public final class ModItems {
 		key -> new WhiteEnergyBladeItem(new Item.Settings().registryKey(key)));
 	public static final Item ENERGY_BLADE_ULTIMATE = register("energy_blade_ultimate",
 		key -> new UltimateEnergyBladeItem(new Item.Settings().registryKey(key)));
+	public static final Item ENERGY_BLADE_DOUBLE_RED = register("energy_blade_double_red",
+		key -> new DoubleSidedEnergyBladeItem(new Item.Settings().registryKey(key), DoubleSidedEnergyBladeItem.redDouble()));
 	public static final Item ENERGY_BOOMERANG = register("energy_boomerang",
 		key -> new EnergyBoomerangItem(new Item.Settings().registryKey(key)));
 
@@ -48,6 +51,7 @@ public final class ModItems {
 				ENERGY_BLADE_YELLOW,
 				ENERGY_BLADE_PURPLE,
 				ENERGY_BLADE_WHITE,
+				ENERGY_BLADE_DOUBLE_RED,
 				ENERGY_BLADE_ULTIMATE,
 				ENERGY_BOOMERANG
 			);

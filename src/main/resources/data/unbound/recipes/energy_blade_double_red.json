@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "R": "unbound:energy_blade_red",
+    "S": "minecraft:nether_star"
+  },
+  "pattern": [
+    "R",
+    "S",
+    "R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "unbound:energy_blade_double_red"
+  }
+}
